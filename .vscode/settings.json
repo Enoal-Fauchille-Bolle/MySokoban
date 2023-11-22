@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "fileslist.h": "c",
+        "linked_list.h": "c",
+        "my.h": "c",
+        "stdio.h": "c",
+        "stdarg.h": "c",
+        "my_printf.h": "c",
+        "stat.h": "c",
+        "myls.h": "c"
+    }
+}
