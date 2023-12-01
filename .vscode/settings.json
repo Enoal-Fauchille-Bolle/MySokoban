@@ -8,6 +8,10 @@
         "stdarg.h": "c",
         "my_printf.h": "c",
         "stat.h": "c",
-        "myls.h": "c"
+        "myls.h": "c",
+        "unistd.h": "c",
+        "mysokoban.h": "c",
+        "curses.h": "c",
+        "display.h": "c"
     }
 }

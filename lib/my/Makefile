@@ -40,7 +40,12 @@ SRC	=	exponent.c  \
 		my_right_strip.c	\
 		my_left_strip.c	\
 		my_str_get_index.c	\
+		my_str_get_nindex.c	\
 		my_sort_str_array.c	\
+		check_malloc.c	\
+		my_strconcat.c	\
+		my_read_file.c	\
+		my_int_to_str.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

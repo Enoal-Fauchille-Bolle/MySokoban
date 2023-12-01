@@ -5,7 +5,11 @@
 ## Makefile
 ##
 
-SRC	=	mysokoban.c	\
+SRC	=	main.c	\
+		mysokoban.c	\
+		parsing.c	\
+		display.c	\
+		movement.c	\
 
 SRC_TESTS =	tests/test.c	\
 
@@ -26,7 +30,7 @@ $(NAME):	$(OBJ)
 	make -C lib/my_printf/
 	make -C lib/linked_list/
 	gcc -o $(NAME) $(OBJ) -L./lib/my -lmy -L./lib/my_printf	\
-	-lmy_printf -L./lib/linked_list -llinked_list
+	-lmy_printf -L./lib/linked_list -llinked_list -lncurses
 
 clean:
 	rm -f $(OBJ)

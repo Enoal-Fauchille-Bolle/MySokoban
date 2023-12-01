@@ -43,6 +43,11 @@ char *my_strip(char *, char);
 char *my_left_strip(char *, char);
 char *my_right_strip(char *, char);
 int my_str_get_index(char *str, char c);
+int my_str_get_nindex(char *str, char c, int occurence);
 void my_sort_str_array(char **array, int size);
+void check_malloc(void *value);
+char *my_strconcat(char *a, char *b);
+char *my_read_file(char *filepath);
+char *my_int_to_str(int nb);
 
 #endif /* MY_H_ */
