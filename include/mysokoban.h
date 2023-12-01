@@ -16,6 +16,8 @@ typedef struct position_s {
 typedef struct game_s {
     char **map;
     position_t **storages;
+    int game_ended;
+    int win;
 } game_t;
 
 int mysokoban(char *filepath);

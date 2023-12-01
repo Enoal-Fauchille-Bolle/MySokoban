@@ -31,19 +31,22 @@ static int get_map_height(char **map)
     return i;
 }
 
-void refresh_display(WINDOW *window, game_t *game)
+void display(WINDOW *window, game_t *game)
 {
     int screen_width = 0;
     int screen_height = 0;
     int width = get_map_width(game->map);
     int height = get_map_height(game->map);
 
-    clear();
     getmaxyx(window, screen_height, screen_width);
+    if (screen_width < width || screen_height < height) {
+        mvprintw((screen_height - 1) / 2,
+            (screen_width / 2) - (29 / 2), "Please enlarge your terminal");
+        return;
+    }
     for (int i = 0; i < height; i++) {
         mvprintw((screen_height - 1) / 2 - height / 2 + i,
             (screen_width / 2) - (width / 2),
             game->map[i]);
     }
-    refresh();
 }

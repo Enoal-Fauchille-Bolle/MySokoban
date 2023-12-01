@@ -65,9 +65,18 @@ char **strmap_to_2d_arr(char *strmap)
 position_t **parse_storages(char **map, char *strmap)
 {
     int storages_count = my_str_char_counter('O', strmap);
-    position_t **storages = malloc(sizeof(position_t) * storages_count + 1);
+    position_t **storages = malloc(sizeof(position_t *) *
+        (storages_count + 1));
+    int i = 0;
 
-    (void)map;
+    for (int row = 0; map[row] != NULL; row++) {
+        if (my_str_include(map[row], 'O')) {
+            storages[i] = malloc(sizeof(position_t));
+            *storages[i] = (position_t)
+                { my_str_get_index(map[row], 'O'), row };
+            i++;
+        }
+    }
     storages[storages_count] = NULL;
     return storages;
 }
