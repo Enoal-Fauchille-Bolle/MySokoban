@@ -21,5 +21,7 @@ typedef struct game_s {
 } game_t;
 
 int mysokoban(char *filepath);
+game_t init_game(char *strmap);
+void key_event(int key, game_t *game, char *strmap);
 
 #endif /* MYSOKOBAN_H_ */

@@ -13,6 +13,7 @@
         "mysokoban.h": "c",
         "curses.h": "c",
         "display.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "redirect.h": "c"
     }
 }

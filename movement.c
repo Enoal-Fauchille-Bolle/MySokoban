@@ -38,7 +38,7 @@ static void reset_position(game_t *game, position_t *position)
     game->map[y][x] = ' ';
 }
 
-static void check_win(game_t *game)
+void check_win(game_t *game)
 {
     int boxes_on_storages = 0;
 
@@ -72,7 +72,6 @@ void move_up(game_t *game)
         game->map[player_y][player_x] = ' ';
     }
     reset_position(game, &player_position);
-    check_win(game);
 }
 
 void move_down(game_t *game)
@@ -95,7 +94,6 @@ void move_down(game_t *game)
         game->map[player_y][player_x] = ' ';
     }
     reset_position(game, &player_position);
-    check_win(game);
 }
 
 void move_left(game_t *game)
@@ -118,7 +116,6 @@ void move_left(game_t *game)
         game->map[player_y][player_x] = ' ';
     }
     reset_position(game, &player_position);
-    check_win(game);
 }
 
 void move_right(game_t *game)
@@ -141,5 +138,4 @@ void move_right(game_t *game)
         game->map[player_y][player_x] = ' ';
     }
     reset_position(game, &player_position);
-    check_win(game);
 }

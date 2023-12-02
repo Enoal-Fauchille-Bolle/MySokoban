@@ -25,84 +25,15 @@ static int get_height_from_strmap(char **strmap)
     return height;
 }
 
-static void check_map_char(char c)
-{
-    if (c != '#' && c != ' ' && c != 'P' && c != 'O' && c != 'X') {
-        write(2, "Invalid map\n", 13);
-        exit(84);
-    }
-}
-
-static void check_map_chars(char **map)
-{
-    for (int row = 0; map[row] != NULL; row++) {
-        for (int col = 0; map[row][col] != '\0'; col++) {
-            check_map_char(map[row][col]);
-        }
-    }
-}
-
-static void check_player_loop(char c, int *player_count)
-{
-    if (c == 'P')
-        *player_count += 1;
-}
-
-static void check_player(char **map)
-{
-    int player_count = 0;
-
-    for (int row = 0; map[row] != NULL; row++) {
-        for (int col = 0; map[row][col] != '\0'; col++) {
-            check_player_loop(map[row][col], &player_count);
-        }
-    }
-    if (player_count != 1) {
-        write(2, "Invalid map\n", 13);
-        exit(84);
-    }
-}
-
-static void check_boxes_and_storages_loop(char c, int *boxes_count,
-    int *storages_count)
-{
-    if (c == 'X')
-        *boxes_count += 1;
-    if (c == 'O')
-        *storages_count += 1;
-}
-
-static void check_boxes_and_storages(char **map)
-{
-    int boxes_count = 0;
-    int storages_count = 0;
-
-    for (int row = 0; map[row] != NULL; row++) {
-        for (int col = 0; map[row][col] != '\0'; col++) {
-            check_boxes_and_storages_loop(map[row][col], &boxes_count,
-                &storages_count);
-        }
-    }
-    if (boxes_count != storages_count) {
-        write(2, "Invalid map\n", 13);
-        exit(84);
-    }
-}
-
-static void check_map(char **map)
-{
-    check_map_chars(map);
-    check_player(map);
-    check_boxes_and_storages(map);
-}
-
 char **strmap_to_2d_arr(char *strmap)
 {
-    int height = get_height_from_strmap(&strmap);
-    char **map = malloc(sizeof(char *) * height + 1);
+    int height;
+    char **map;
 
     if (strmap == NULL)
         exit(84);
+    height = get_height_from_strmap(&strmap);
+    map = malloc(sizeof(char *) * height + 1);
     for (int i = 0; i < height; i++) {
         map[i] = malloc(sizeof(char) *
             my_str_get_nindex(strmap, '\n', i - 1) -
@@ -112,7 +43,6 @@ char **strmap_to_2d_arr(char *strmap)
             my_str_get_nindex(strmap, '\n', i));
     }
     map[height] = NULL;
-    check_map(map);
     return map;
 }
 

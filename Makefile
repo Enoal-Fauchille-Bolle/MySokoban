@@ -13,6 +13,11 @@ SRC	=	main.c	\
 		checking.c	\
 
 SRC_TESTS =	tests/test.c	\
+		mysokoban.c	\
+		parsing.c	\
+		display.c	\
+		movement.c	\
+		checking.c	\
 
 NAME	=	my_sokoban
 
@@ -22,7 +27,7 @@ CFLAGS += -I./include/ -Werror -Wall -Wextra
 
 FLAGS_TEST = -L./lib/my -lmy -L./lib/my_printf	\
 			-lmy_printf -L./lib/linked_list -llinked_list	\
-			-lcriterion --coverage
+			-lcriterion --coverage -lncurses
 
 all:	$(NAME)
 

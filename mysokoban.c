@@ -10,6 +10,7 @@
 #include "mysokoban.h"
 #include "parsing.h"
 #include "display.h"
+#include "checking.h"
 #include "movement.h"
 #include <curses.h>
 
@@ -27,7 +28,6 @@ void key_event(int key, game_t *game, char *strmap)
     if (key == KEY_RIGHT) {
         move_right(game);
     }
-    (void)strmap;
     if (key == 32) {
         game->map = strmap_to_2d_arr(strmap);
         game->storages = parse_storages(game->map, strmap);
@@ -40,6 +40,7 @@ game_t init_game(char *strmap)
     position_t **storages = parse_storages(map, strmap);
     game_t game = { map, storages, 0, 0 };
 
+    check_map(map);
     return game;
 }
 
@@ -56,6 +57,7 @@ int mysokoban(char *filepath)
     do {
         clear();
         key_event(current_key, &game, strmap);
+        check_win(&game);
         display(window, &game);
         refresh();
         if (game.game_ended)
