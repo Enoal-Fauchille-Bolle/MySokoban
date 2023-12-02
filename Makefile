@@ -10,6 +10,7 @@ SRC	=	main.c	\
 		parsing.c	\
 		display.c	\
 		movement.c	\
+		checking.c	\
 
 SRC_TESTS =	tests/test.c	\
 

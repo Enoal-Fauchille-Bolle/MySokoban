@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2023
-** exponent
+** my_exponent
 ** File description:
-** exponent
+** my_exponent
 */
 
-int exponent(int x, int y)
+int my_exponent(int x, int y)
 {
     int result = 1;
 

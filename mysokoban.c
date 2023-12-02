@@ -34,12 +34,19 @@ void key_event(int key, game_t *game, char *strmap)
     }
 }
 
-int mysokoban(char *filepath)
+game_t init_game(char *strmap)
 {
-    char *strmap = my_read_file(filepath);
     char **map = strmap_to_2d_arr(strmap);
     position_t **storages = parse_storages(map, strmap);
     game_t game = { map, storages, 0, 0 };
+
+    return game;
+}
+
+int mysokoban(char *filepath)
+{
+    char *strmap = my_read_file(filepath);
+    game_t game = init_game(strmap);
     WINDOW *window;
     int current_key = 0;
 
@@ -51,8 +58,10 @@ int mysokoban(char *filepath)
         key_event(current_key, &game, strmap);
         display(window, &game);
         refresh();
+        if (game.game_ended)
+            break;
         current_key = getch();
     } while (!game.game_ended && current_key != 27);
     endwin();
-    return game.win;
+    return !game.win;
 }

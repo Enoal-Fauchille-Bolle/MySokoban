@@ -35,7 +35,7 @@ char *my_strcat(char *, char const *);
 char *my_strncat(char *, char const *, int);
 char *my_strdup(char const *);
 char **my_str_to_word_array(char const *);
-int exponent(int, int);
+int my_exponent(int, int);
 int my_show_word_array(char *const *);
 char *my_slice(char const *, int, int);
 int my_str_include(char *, char);
@@ -49,5 +49,6 @@ void check_malloc(void *value);
 char *my_strconcat(char *a, char *b);
 char *my_read_file(char *filepath);
 char *my_int_to_str(int nb);
+int my_arrlen(void **arr);
 
 #endif /* MY_H_ */

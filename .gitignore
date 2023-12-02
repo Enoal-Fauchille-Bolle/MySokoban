@@ -9,4 +9,4 @@ a.out
 *.gcda
 *.gcno
 unit_tests
-main
+my_sokoban

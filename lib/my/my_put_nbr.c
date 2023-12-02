@@ -12,12 +12,12 @@ static void my_put_nbr_display(int nb, int length)
     int current;
 
     for (int i = length; i > 0; i--) {
-        current = nb / exponent(10, i - 1);
+        current = nb / my_exponent(10, i - 1);
         if (current < 0) {
             current *= -1;
         }
         my_putchar(48 + current);
-        nb -= current * exponent(10, i - 1);
+        nb -= current * my_exponent(10, i - 1);
     }
 }
 

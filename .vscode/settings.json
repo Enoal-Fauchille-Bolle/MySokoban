@@ -12,6 +12,7 @@
         "unistd.h": "c",
         "mysokoban.h": "c",
         "curses.h": "c",
-        "display.h": "c"
+        "display.h": "c",
+        "stddef.h": "c"
     }
 }

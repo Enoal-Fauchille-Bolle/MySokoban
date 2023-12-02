@@ -27,7 +27,7 @@ char *my_read_file(char *filepath)
 
     if (fd == -1) {
         write(2, "Error while reading file\n", 25);
-        return NULL;
+        exit(84);
     }
     read(fd, buffer, length);
     close(fd);
