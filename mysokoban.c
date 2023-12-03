@@ -48,16 +48,16 @@ int mysokoban(char *filepath)
 {
     char *strmap = my_read_file(filepath);
     game_t game = init_game(strmap);
-    WINDOW *window;
+    WINDOW *window = initscr();
     int current_key = 0;
 
-    window = initscr();
     keypad(window, true);
     curs_set(0);
     do {
         clear();
         key_event(current_key, &game, strmap);
         check_win(&game);
+        check_lose(&game);
         display(window, &game);
         refresh();
         if (game.game_ended)

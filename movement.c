@@ -38,20 +38,6 @@ static void reset_position(game_t *game, position_t *position)
     game->map[y][x] = ' ';
 }
 
-void check_win(game_t *game)
-{
-    int boxes_on_storages = 0;
-
-    for (int i = 0; game->storages[i] != NULL; i++) {
-        if (game->map[game->storages[i]->y][game->storages[i]->x] == 'X')
-            boxes_on_storages += 1;
-    }
-    if (boxes_on_storages == my_arrlen((void **)game->storages)) {
-        game->game_ended = 1;
-        game->win = 1;
-    }
-}
-
 void move_up(game_t *game)
 {
     position_t player_position = get_player_position(game->map);

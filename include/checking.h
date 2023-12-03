@@ -11,5 +11,7 @@
     #include "mysokoban.h"
 
 void check_map(char **map);
+void check_win(game_t *game);
+void check_lose(game_t *game);
 
 #endif /* CHECKING_H_ */

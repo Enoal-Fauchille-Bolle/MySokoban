@@ -14,6 +14,5 @@ void move_up(game_t *game);
 void move_down(game_t *game);
 void move_left(game_t *game);
 void move_right(game_t *game);
-void check_win(game_t *game);
 
 #endif /* MOVEMENT_H_ */

@@ -90,7 +90,7 @@ Test(mysokoban, check_map_invalid_char, .init = redirect_all_std, .exit_code = 8
 //////////////////////////////// Map Movements ///////////////////////////////
 
 Test(mysokoban, move_up, .init = redirect_all_std) {
-    char *strmap = "#####\n# P #\n#   #\n#   #\n#####\n";
+    char *strmap = "#####\n#   #\n# P #\n#   #\n#####\n";
     game_t game = init_game(strmap);
 
     move_up(&game);
@@ -101,7 +101,7 @@ Test(mysokoban, move_up, .init = redirect_all_std) {
 }
 
 Test(mysokoban, move_down, .init = redirect_all_std) {
-    char *strmap = "#####\n#   #\n#   #\n# P #\n#####\n";
+    char *strmap = "#####\n#   #\n# P #\n#   #\n#####\n";
     game_t game = init_game(strmap);
 
     move_down(&game);
@@ -285,7 +285,20 @@ Test(mysokoban, check_win, .init = redirect_all_std) {
 
     move_up(&game);
     check_win(&game);
+    cr_assert_eq(game.game_ended, 1);
     cr_assert_eq(game.win, 1);
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, check_lose, .init = redirect_all_std) {
+    char *strmap = "#####\n# O #\n#X  #\n#P  #\n#####\n";
+    game_t game = init_game(strmap);
+
+    move_up(&game);
+    check_lose(&game);
+    cr_assert_eq(game.game_ended, 1);
+    cr_assert_eq(game.win, 0);
     free(game.map);
     free(game.storages);
 }
@@ -295,9 +308,72 @@ Test(mysokoban, check_win, .init = redirect_all_std) {
 // Test(mysokoban, display, .init = redirect_all_std) {
 //     char *strmap = "#####\n# O #\n# X #\n# P #\n#####\n";
 //     game_t game = init_game(strmap);
+//     WINDOW *window;
 
-//     display(stdscr, &game);
-//     cr_assert_stdout_eq_str("#####\n# O #\n# X #\n# P #\n#####\n");
+//     window = initscr();
+//     display(window, &game);
+//     cr_assert_stdout_eq_str("#####\n# O #\n# X #\n# P #\n#####\n", "Got\n%s\nExpected\n%s", stdout, "#####\n# O #\n# X #\n# P #\n#####\n");
+//     endwin();
 //     free(game.map);
 //     free(game.storages);
 // }
+
+//////////////////////////////////// Keys ///////////////////////////////////
+
+Test(mysokoban, key_up, .init = redirect_all_std) {
+    char *strmap = "#####\n# P #\n#   #\n#   #\n#####\n";
+    game_t game = init_game(strmap);
+
+    key_event(KEY_UP, &game, strmap);
+    cr_assert_eq(game.map[2][2], ' ');
+    cr_assert_eq(game.map[1][2], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, key_down, .init = redirect_all_std) {
+    char *strmap = "#####\n#   #\n#   #\n# P #\n#####\n";
+    game_t game = init_game(strmap);
+
+    key_event(KEY_DOWN, &game, strmap);
+    cr_assert_eq(game.map[2][2], ' ');
+    cr_assert_eq(game.map[3][2], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, key_left, .init = redirect_all_std) {
+    char *strmap = "#####\n# P #\n#   #\n#####\n";
+    game_t game = init_game(strmap);
+
+    key_event(KEY_LEFT, &game, strmap);
+    cr_assert_eq(game.map[1][2], ' ');
+    cr_assert_eq(game.map[1][1], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, key_right, .init = redirect_all_std) {
+    char *strmap = "#####\n# P #\n#   #\n#####\n";
+    game_t game = init_game(strmap);
+
+    key_event(KEY_RIGHT, &game, strmap);
+    cr_assert_eq(game.map[1][2], ' ');
+    cr_assert_eq(game.map[1][3], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, key_space, .init = redirect_all_std) {
+    char *strmap = "#####\n# P #\n#   #\n#####\n";
+    game_t game = init_game(strmap);
+
+    key_event(KEY_RIGHT, &game, strmap);
+    cr_assert_eq(game.map[1][2], ' ');
+    cr_assert_eq(game.map[1][3], 'P');
+    key_event(32, &game, strmap);
+    cr_assert_eq(game.map[1][2], 'P');
+    cr_assert_eq(game.map[1][3], ' ');
+    free(game.map);
+    free(game.storages);
+}

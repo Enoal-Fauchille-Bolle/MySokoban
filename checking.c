@@ -82,3 +82,39 @@ void check_map(char **map)
     check_player(map);
     check_boxes_and_storages(map);
 }
+
+void check_win(game_t *game)
+{
+    int boxes_on_storages = 0;
+
+    for (int i = 0; game->storages[i] != NULL; i++) {
+        if (game->map[game->storages[i]->y][game->storages[i]->x] == 'X')
+            boxes_on_storages += 1;
+    }
+    if (boxes_on_storages == my_arrlen((void **)game->storages)) {
+        game->game_ended = 1;
+        game->win = 1;
+    }
+}
+
+static void check_lose_box(game_t *game, int x, int y)
+{
+    if (game->map[y][x] == 'X') {
+        if ((game->map[y][x + 1] == '#' && game->map[y + 1][x] == '#') ||
+            (game->map[y][x - 1] == '#' && game->map[y + 1][x] == '#') ||
+            (game->map[y][x + 1] == '#' && game->map[y - 1][x] == '#') ||
+            (game->map[y][x - 1] == '#' && game->map[y - 1][x] == '#')) {
+                game->game_ended = 1;
+                game->win = 0;
+        }
+    }
+}
+
+void check_lose(game_t *game)
+{
+    for (int y = 0; game->map[y] != NULL; y++) {
+        for (int x = 0; game->map[y][x] != '\0'; x++) {
+            check_lose_box(game, x, y);
+        }
+    }
+}
