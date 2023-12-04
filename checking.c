@@ -112,6 +112,8 @@ static void check_lose_box(game_t *game, int x, int y)
 
 void check_lose(game_t *game)
 {
+    if (game->game_ended)
+        return;
     for (int y = 0; game->map[y] != NULL; y++) {
         for (int x = 0; game->map[y][x] != '\0'; x++) {
             check_lose_box(game, x, y);

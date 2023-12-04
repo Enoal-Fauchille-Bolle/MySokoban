@@ -89,6 +89,8 @@ Test(mysokoban, check_map_invalid_char, .init = redirect_all_std, .exit_code = 8
 
 //////////////////////////////// Map Movements ///////////////////////////////
 
+// Move
+
 Test(mysokoban, move_up, .init = redirect_all_std) {
     char *strmap = "#####\n#   #\n# P #\n#   #\n#####\n";
     game_t game = init_game(strmap);
@@ -132,6 +134,8 @@ Test(mysokoban, move_right, .init = redirect_all_std) {
     free(game.map);
     free(game.storages);
 }
+
+// Move into wall
 
 Test(mysokoban, move_up_into_wall, .init = redirect_all_std) {
     char *strmap = "#####\n# P #\n#   #\n#####\n";
@@ -177,6 +181,8 @@ Test(mysokoban, move_right_into_wall, .init = redirect_all_std) {
     free(game.storages);
 }
 
+// Move box
+
 Test(mysokoban, move_up_into_box, .init = redirect_all_std) {
     char *strmap = "#####\n#   #\n# XO#\n# P #\n#####\n";
     game_t game = init_game(strmap);
@@ -220,6 +226,8 @@ Test(mysokoban, move_right_into_box, .init = redirect_all_std) {
     free(game.map);
     free(game.storages);
 }
+
+// Move box into wall
 
 Test(mysokoban, move_up_into_box_into_wall, .init = redirect_all_std) {
     char *strmap = "#####\n# XO#\n# P #\n#####\n";
@@ -265,6 +273,8 @@ Test(mysokoban, move_right_into_box_into_wall, .init = redirect_all_std) {
     free(game.storages);
 }
 
+// Restore storage location
+
 Test(mysokoban, move_restore_storage_location, .init = redirect_all_std) {
     char *strmap = "#####\n# PX#\n# O #\n#   #\n#####\n";
     game_t game = init_game(strmap);
@@ -273,6 +283,52 @@ Test(mysokoban, move_restore_storage_location, .init = redirect_all_std) {
     cr_assert_eq(game.map[2][2], 'P');
     move_down(&game);
     cr_assert_eq(game.map[2][2], 'O');
+    free(game.map);
+    free(game.storages);
+}
+
+// No wall
+
+Test(my_sokoban, move_up_no_wall, .init = redirect_all_std) {
+    char *strmap = "# #\n P \n# #\n";
+    game_t game = init_game(strmap);
+
+    move_up(&game);
+    cr_assert_eq(game.map[0][1], ' ');
+    cr_assert_eq(game.map[1][1], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(my_sokoban, move_down_no_wall, .init = redirect_all_std) {
+    char *strmap = "# #\n P \n# #\n";
+    game_t game = init_game(strmap);
+
+    move_down(&game);
+    cr_assert_eq(game.map[2][1], ' ');
+    cr_assert_eq(game.map[1][1], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(my_sokoban, move_left_no_wall, .init = redirect_all_std) {
+    char *strmap = "# #\n P \n# #\n";
+    game_t game = init_game(strmap);
+
+    move_left(&game);
+    cr_assert_eq(game.map[1][0], ' ');
+    cr_assert_eq(game.map[1][1], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(my_sokoban, move_right_no_wall, .init = redirect_all_std) {
+    char *strmap = "# #\n P \n# #\n";
+    game_t game = init_game(strmap);
+
+    move_right(&game);
+    cr_assert_eq(game.map[1][2], ' ');
+    cr_assert_eq(game.map[1][1], 'P');
     free(game.map);
     free(game.storages);
 }

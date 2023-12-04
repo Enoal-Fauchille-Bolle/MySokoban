@@ -14,6 +14,7 @@
         "curses.h": "c",
         "display.h": "c",
         "stddef.h": "c",
-        "redirect.h": "c"
+        "redirect.h": "c",
+        "checking.h": "c"
     }
 }

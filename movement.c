@@ -44,15 +44,16 @@ void move_up(game_t *game)
     int player_x = player_position.x;
     int player_y = player_position.y;
 
-    if (game->map[player_y - 1][player_x] == '#')
+    if (game->map[player_y - 1][player_x] == '#' || player_y - 2 < 0) {
         return;
+    }
     if (game->map[player_y - 1][player_x] != 'X') {
-        game->map[player_y - 1][player_x] = 'P';
-        game->map[player_y][player_x] = ' ';
+            game->map[player_y - 1][player_x] = 'P';
+            game->map[player_y][player_x] = ' ';
     } else {
         if (game->map[player_y - 2][player_x] == '#' ||
             game->map[player_y - 2][player_x] == 'X')
-            return;
+                return;
         game->map[player_y - 2][player_x] = 'X';
         game->map[player_y - 1][player_x] = 'P';
         game->map[player_y][player_x] = ' ';
@@ -66,8 +67,9 @@ void move_down(game_t *game)
     int player_x = player_position.x;
     int player_y = player_position.y;
 
-    if (game->map[player_y + 1][player_x] == '#')
-        return;
+    if (game->map[player_y + 1][player_x] == '#' ||
+        game->map[player_y + 2] == NULL)
+            return;
     if (game->map[player_y + 1][player_x] != 'X') {
         game->map[player_y + 1][player_x] = 'P';
         game->map[player_y][player_x] = ' ';
@@ -88,7 +90,7 @@ void move_left(game_t *game)
     int player_x = player_position.x;
     int player_y = player_position.y;
 
-    if (game->map[player_y][player_x - 1] == '#')
+    if (game->map[player_y][player_x - 1] == '#' || player_x - 2 < 0)
         return;
     if (game->map[player_y][player_x - 1] != 'X') {
         game->map[player_y][player_x - 1] = 'P';
@@ -110,7 +112,8 @@ void move_right(game_t *game)
     int player_x = player_position.x;
     int player_y = player_position.y;
 
-    if (game->map[player_y][player_x + 1] == '#')
+    if (game->map[player_y][player_x + 1] == '#' ||
+        game->map[player_y][player_x + 2] == '\0')
         return;
     if (game->map[player_y][player_x + 1] != 'X') {
         game->map[player_y][player_x + 1] = 'P';
