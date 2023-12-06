@@ -8,6 +8,7 @@
 #include "my.h"
 #include "my_printf.h"
 #include "mysokoban.h"
+#include <unistd.h>
 
 static int help_page(void)
 {
@@ -27,6 +28,8 @@ int main(int argc, char **argv)
         return help_page();
     else if (argc >= 2) {
         return mysokoban(argv[1]);
-    } else
-        return 0;
+    } else {
+        write(2, "Please specify a map file\n", 27);
+        return 84;
+    }
 }

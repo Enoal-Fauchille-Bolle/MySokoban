@@ -13,6 +13,7 @@
 #include "checking.h"
 #include "movement.h"
 #include <curses.h>
+#include <unistd.h>
 
 void key_event(int key, game_t *game, char *strmap)
 {
@@ -44,6 +45,15 @@ game_t init_game(char *strmap)
     return game;
 }
 
+static void game_refresh(game_t *game, int current_key,
+    char *strmap, WINDOW *window)
+{
+    key_event(current_key, game, strmap);
+    check_win(game);
+    check_lose(game);
+    display(window, game);
+}
+
 int mysokoban(char *filepath)
 {
     char *strmap = my_read_file(filepath);
@@ -55,15 +65,13 @@ int mysokoban(char *filepath)
     curs_set(0);
     do {
         clear();
-        key_event(current_key, &game, strmap);
-        check_win(&game);
-        check_lose(&game);
-        display(window, &game);
+        game_refresh(&game, current_key, strmap, window);
         refresh();
         if (game.game_ended)
             break;
         current_key = getch();
     } while (!game.game_ended && current_key != 27);
+    usleep(1000000);
     endwin();
     return !game.win;
 }
