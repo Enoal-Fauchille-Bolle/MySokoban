@@ -8,10 +8,11 @@
 #include "my.h"
 #include "my_printf.h"
 #include "mysokoban.h"
-#include "parsing.h"
-#include "display.h"
-#include "checking.h"
-#include "movement.h"
+#include "map_parsing.h"
+#include "game_display.h"
+#include "map_checking.h"
+#include "game_checking.h"
+#include "game_movements.h"
 #include <curses.h>
 #include <unistd.h>
 

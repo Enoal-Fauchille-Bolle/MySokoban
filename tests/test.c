@@ -7,10 +7,10 @@
 
 #include "my.h"
 #include "mysokoban.h"
-#include "movement.h"
-#include "parsing.h"
-#include "display.h"
-#include "checking.h"
+#include "game_movements.h"
+#include "map_parsing.h"
+#include "game_display.h"
+#include "map_checking.h"
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 #include <curses.h>
@@ -347,11 +347,25 @@ Test(mysokoban, check_win, .init = redirect_all_std) {
     free(game.storages);
 }
 
-Test(mysokoban, check_lose, .init = redirect_all_std) {
+Test(mysokoban, check_not_lose, .init = redirect_all_std) {
     char *strmap = "#####\n# O #\n#X  #\n#P  #\n#####\n";
     game_t game = init_game(strmap);
 
     move_up(&game);
+    check_lose(&game);
+    cr_assert_eq(game.game_ended, 0);
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, check_lose, .init = redirect_all_std) {
+    char *strmap = "#######\n# O O #\n# XPX #\n#######\n";
+    game_t game = init_game(strmap);
+
+    move_left(&game);
+    cr_assert_eq(game.game_ended, 0);
+    move_right(&game);
+    move_right(&game);
     check_lose(&game);
     cr_assert_eq(game.game_ended, 1);
     cr_assert_eq(game.win, 0);

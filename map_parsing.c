@@ -7,7 +7,7 @@
 
 #include "my.h"
 #include "my_printf.h"
-#include "parsing.h"
+#include "map_parsing.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,6 +46,19 @@ char **strmap_to_2d_arr(char *strmap)
     return map;
 }
 
+void parse_storages_char(char **map, position_t pos, position_t ***storages,
+    int *i)
+{
+    position_t **tmp = *storages;
+
+    if (map[pos.y][pos.x] == 'O') {
+        tmp[*i] = malloc(sizeof(position_t));
+        *tmp[*i] = (position_t) { pos.x, pos.y };
+        *i += 1;
+    }
+    *storages = tmp;
+}
+
 position_t **parse_storages(char **map, char *strmap)
 {
     int storages_count = my_str_char_counter('O', strmap);
@@ -54,11 +67,9 @@ position_t **parse_storages(char **map, char *strmap)
     int i = 0;
 
     for (int row = 0; map[row] != NULL; row++) {
-        if (my_str_include(map[row], 'O')) {
-            storages[i] = malloc(sizeof(position_t));
-            *storages[i] = (position_t)
-                { my_str_get_index(map[row], 'O'), row };
-            i++;
+        for (int col = 0; map[row][col] != '\0'; col++) {
+            parse_storages_char(map, (position_t) { col, row },
+                &storages, &i);
         }
     }
     storages[storages_count] = NULL;

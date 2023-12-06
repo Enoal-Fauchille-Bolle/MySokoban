@@ -7,10 +7,11 @@
 
 SRC	=	main.c	\
 		mysokoban.c	\
-		parsing.c	\
-		display.c	\
-		movement.c	\
-		checking.c	\
+		map_parsing.c	\
+		game_display.c	\
+		game_movements.c	\
+		map_checking.c	\
+		game_checking.c	\
 
 SRC_TESTS =	tests/test.c	\
 		mysokoban.c	\

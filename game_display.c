@@ -8,7 +8,7 @@
 #include "my.h"
 #include "my_printf.h"
 #include "mysokoban.h"
-#include "display.h"
+#include "game_display.h"
 #include <curses.h>
 
 static int get_map_width(char **map)
