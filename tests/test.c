@@ -11,6 +11,7 @@
 #include "map_parsing.h"
 #include "game_display.h"
 #include "map_checking.h"
+#include "game_checking.h"
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 #include <curses.h>
@@ -348,7 +349,7 @@ Test(mysokoban, check_win, .init = redirect_all_std) {
 }
 
 Test(mysokoban, check_not_lose, .init = redirect_all_std) {
-    char *strmap = "#####\n# O #\n#X  #\n#P  #\n#####\n";
+    char *strmap = "#####\n# OO#\n#X X#\n#P  #\n#####\n";
     game_t game = init_game(strmap);
 
     move_up(&game);
