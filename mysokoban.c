@@ -72,7 +72,7 @@ int mysokoban(char *filepath)
             break;
         current_key = getch();
     } while (!game.game_ended && current_key != 27);
-    usleep(1000000);
+    usleep(10000);
     endwin();
     return !game.win;
 }
