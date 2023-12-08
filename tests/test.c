@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "my_printf.h"
 #include "mysokoban.h"
 #include "game_movements.h"
 #include "map_parsing.h"
@@ -274,6 +275,56 @@ Test(mysokoban, move_right_into_box_into_wall, .init = redirect_all_std) {
     free(game.storages);
 }
 
+// Move box into box
+
+Test(mysokoban, move_up_into_box_into_box, .init = redirect_all_std) {
+    char *strmap = "#####\n#O  #\n# XO#\n# X #\n# P #\n#####\n";
+    game_t game = init_game(strmap);
+
+    move_up(&game);
+    cr_assert_eq(game.map[2][2], 'X');
+    cr_assert_eq(game.map[3][2], 'X');
+    cr_assert_eq(game.map[4][2], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, move_down_into_box_into_box, .init = redirect_all_std) {
+    char *strmap = "#####\n# P #\n# XO#\n# X #\n#O  #\n#####\n";
+    game_t game = init_game(strmap);
+
+    move_down(&game);
+    cr_assert_eq(game.map[1][2], 'P');
+    cr_assert_eq(game.map[2][2], 'X');
+    cr_assert_eq(game.map[3][2], 'X');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, move_left_into_box_into_box, .init = redirect_all_std) {
+    char *strmap = "######\n#   #\n# XXP#\n#O O #\n######\n";
+    game_t game = init_game(strmap);
+
+    move_left(&game);
+    cr_assert_eq(game.map[2][2], 'X');
+    cr_assert_eq(game.map[2][3], 'X');
+    cr_assert_eq(game.map[2][4], 'P');
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, move_right_into_box_into_box, .init = redirect_all_std) {
+    char *strmap = "######\n#   #\n#PXX #\n#O O #\n######\n";
+    game_t game = init_game(strmap);
+
+    move_right(&game);
+    cr_assert_eq(game.map[2][1], 'P');
+    cr_assert_eq(game.map[2][2], 'X');
+    cr_assert_eq(game.map[2][3], 'X');
+    free(game.map);
+    free(game.storages);
+}
+
 // Restore storage location
 
 Test(mysokoban, move_restore_storage_location, .init = redirect_all_std) {
@@ -342,6 +393,7 @@ Test(mysokoban, check_win, .init = redirect_all_std) {
 
     move_up(&game);
     check_win(&game);
+    check_lose(&game);
     cr_assert_eq(game.game_ended, 1);
     cr_assert_eq(game.win, 1);
     free(game.map);
@@ -353,6 +405,7 @@ Test(mysokoban, check_not_lose, .init = redirect_all_std) {
     game_t game = init_game(strmap);
 
     move_up(&game);
+    check_win(&game);
     check_lose(&game);
     cr_assert_eq(game.game_ended, 0);
     free(game.map);
@@ -367,6 +420,7 @@ Test(mysokoban, check_lose, .init = redirect_all_std) {
     cr_assert_eq(game.game_ended, 0);
     move_right(&game);
     move_right(&game);
+    check_win(&game);
     check_lose(&game);
     cr_assert_eq(game.game_ended, 1);
     cr_assert_eq(game.win, 0);
@@ -374,20 +428,46 @@ Test(mysokoban, check_lose, .init = redirect_all_std) {
     free(game.storages);
 }
 
+Test(mysokoban, check_win_when_stuck) {
+    char *strmap = "#######\n#OXPXO#\n#######\n";
+    game_t game = init_game(strmap);
+
+    move_right(&game);
+    move_left(&game);
+    move_left(&game);
+    check_win(&game);
+    check_lose(&game);
+    cr_assert_eq(game.game_ended, 1);
+    cr_assert_eq(game.win, 1);
+    free(game.map);
+    free(game.storages);
+}
+
 ////////////////////////////// Map Display ///////////////////////////////////
 
-// Test(mysokoban, display, .init = redirect_all_std) {
-//     char *strmap = "#####\n# O #\n# X #\n# P #\n#####\n";
-//     game_t game = init_game(strmap);
-//     WINDOW *window;
+Test(mysokoban, display, .init = redirect_all_std) {
+    char *strmap = "#####\n# O #\n# X #\n# P #\n#####\n";
+    game_t game = init_game(strmap);
+    WINDOW *window;
 
-//     window = initscr();
-//     display(window, &game);
-//     cr_assert_stdout_eq_str("#####\n# O #\n# X #\n# P #\n#####\n", "Got\n%s\nExpected\n%s", stdout, "#####\n# O #\n# X #\n# P #\n#####\n");
-//     endwin();
-//     free(game.map);
-//     free(game.storages);
-// }
+    window = initscr();
+    cr_assert_eq(display(window, &game), 0);
+    endwin();
+    free(game.map);
+    free(game.storages);
+}
+
+Test(mysokoban, display_terminal_too_small, .init = redirect_all_std) {
+    char *strmap = "#####\n# O #\n# X #\n# P #\n###############################################################################################################################################################################################################################################\n";
+    game_t game = init_game(strmap);
+    WINDOW *window;
+
+    window = initscr();
+    cr_assert_eq(display(window, &game), 1);
+    endwin();
+    free(game.map);
+    free(game.storages);
+}
 
 //////////////////////////////////// Keys ///////////////////////////////////
 
@@ -448,3 +528,10 @@ Test(mysokoban, key_space, .init = redirect_all_std) {
     free(game.map);
     free(game.storages);
 }
+
+//////////////////////////////////// Game ///////////////////////////////////
+
+// Test(mysokoban, game, .init = redirect_all_std) {
+//     mysokoban("../map");
+//     // cr_assert_eq(1, 1);
+// }

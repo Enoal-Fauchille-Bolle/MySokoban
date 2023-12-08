@@ -10,6 +10,6 @@
 
     #include <curses.h>
 
-void display(WINDOW *window, game_t *game);
+int display(WINDOW *window, game_t *game);
 
 #endif /* DISPLAY_H_ */

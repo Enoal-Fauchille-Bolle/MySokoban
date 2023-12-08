@@ -31,7 +31,7 @@ static int get_map_height(char **map)
     return i;
 }
 
-void display(WINDOW *window, game_t *game)
+int display(WINDOW *window, game_t *game)
 {
     int screen_width = 0;
     int screen_height = 0;
@@ -42,11 +42,12 @@ void display(WINDOW *window, game_t *game)
     if (screen_width < width || screen_height < height) {
         mvprintw((screen_height - 1) / 2,
             (screen_width / 2) - (29 / 2), "Please enlarge your terminal");
-        return;
+        return 1;
     }
     for (int i = 0; i < height; i++) {
         mvprintw((screen_height - 1) / 2 - height / 2 + i,
             (screen_width / 2) - (width / 2),
             game->map[i]);
     }
+    return 0;
 }
