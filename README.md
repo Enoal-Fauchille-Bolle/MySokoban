@@ -8,6 +8,7 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Enoal-Fauchille-Bolle/MySokoban)
 ![License](https://img.shields.io/github/license/Enoal-Fauchille-Bolle/MySokoban)
 [![wakatime](https://wakatime.com/badge/user/018bbded-63e4-4a01-bd5e-21d050739656/project/018bf83b-75df-4a8d-9e59-9b6359ba2488.svg)](https://wakatime.com/badge/user/018bbded-63e4-4a01-bd5e-21d050739656/project/018bf83b-75df-4a8d-9e59-9b6359ba2488)
+![Lines of Code](https://tokei.rs/b1/github/Enoal-Fauchille-Bolle/MySokoban)
 
 This project is a terminal-based Sokoban game written in C using the ncurses library. Developed as part of the Epitech curriculum, it challenges players to push boxes to designated storage locations within a warehouse.
 
