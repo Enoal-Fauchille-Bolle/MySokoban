@@ -5,13 +5,14 @@
 ## Makefile
 ##
 
-SRC	=	main.c	\
-		mysokoban.c	\
-		map_parsing.c	\
-		game_display.c	\
-		game_movements.c	\
-		map_checking.c	\
-		game_checking.c	\
+SRCDIR	=	src/
+SRC	=	$(SRCDIR)main.c	\
+		$(SRCDIR)mysokoban.c	\
+		$(SRCDIR)map_parsing.c	\
+		$(SRCDIR)game_display.c	\
+		$(SRCDIR)game_movements.c	\
+		$(SRCDIR)map_checking.c	\
+		$(SRCDIR)game_checking.c	\
 
 SRC_TESTS =	tests/test.c	\
 		mysokoban.c	\
