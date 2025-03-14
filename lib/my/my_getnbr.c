@@ -12,7 +12,7 @@ static int my_getnbr_parse(char const *str, int start, int end, int negative)
     int result = 0;
     int n;
 
-    for (int i = start ; i <= end; i++) {
+    for (int i = start; i <= end; i++) {
         n = str[i] - 48;
         if (negative) {
             result -= n * my_exponent(10, end - i);

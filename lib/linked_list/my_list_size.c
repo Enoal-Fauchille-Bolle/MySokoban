@@ -15,7 +15,7 @@ int my_list_size(linked_list const *begin)
 
     tmp = (linked_list *)begin;
     while (tmp != NULL) {
-        tmp = tmp -> next;
+        tmp = tmp->next;
         counter++;
     }
     return counter;

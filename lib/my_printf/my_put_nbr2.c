@@ -46,7 +46,7 @@ static int divide_and_remove(int nb, int divisible, int *debut)
 static int print_nbr(int nb)
 {
     int debut = 8;
-    int	len = 1;
+    int len = 1;
 
     while ((absolue(nb) / my_compute_power_rec(10, len - 1)) >= 10) {
         len++;
@@ -65,7 +65,7 @@ static int initialisation(int *nb_min_char, int *nb_precision,
     char *modifiers, va_list list)
 {
     int start_min = number_in_modifiers(1, modifiers);
-    int	start_prec = number_in_modifiers(2, modifiers);
+    int start_prec = number_in_modifiers(2, modifiers);
 
     if (in_modifiers(1, '*', modifiers) == 1) {
         *nb_min_char = va_arg(list, int);

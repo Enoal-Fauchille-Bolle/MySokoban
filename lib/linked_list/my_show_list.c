@@ -15,8 +15,8 @@ void my_show_list(linked_list *list)
 
     tmp = list;
     while (tmp != NULL) {
-        my_putstr(tmp -> data);
+        my_putstr(tmp->data);
         my_putchar('\n');
-        tmp = tmp -> next;
+        tmp = tmp->next;
     }
 }

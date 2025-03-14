@@ -17,11 +17,11 @@ linked_list *my_find_node(linked_list const *begin,
 
     tmp = (linked_list *)begin;
     while (tmp != NULL) {
-        if ((*cmp)(tmp -> data, data_ref) == 0) {
+        if ((*cmp)(tmp->data, data_ref) == 0) {
             result = tmp;
             break;
         }
-        tmp = tmp -> next;
+        tmp = tmp->next;
     }
     return result;
 }

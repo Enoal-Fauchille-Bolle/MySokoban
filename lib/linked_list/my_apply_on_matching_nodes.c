@@ -16,10 +16,10 @@ int my_apply_on_matching_nodes(linked_list *begin, int (*f)(void *),
 
     tmp = begin;
     while (tmp != NULL) {
-        if ((*cmp)(tmp -> data, data_ref) == 0) {
-            (*f)(tmp -> data);
+        if ((*cmp)(tmp->data, data_ref) == 0) {
+            (*f)(tmp->data);
         }
-        tmp = tmp -> next;
+        tmp = tmp->next;
     }
     return 0;
 }

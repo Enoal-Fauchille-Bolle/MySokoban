@@ -15,8 +15,8 @@ int my_apply_on_nodes(linked_list *begin, int (*f)(void *))
 
     tmp = begin;
     while (tmp != NULL) {
-        (*f)(tmp -> data);
-        tmp = tmp -> next;
+        (*f)(tmp->data);
+        tmp = tmp->next;
     }
     return 0;
 }

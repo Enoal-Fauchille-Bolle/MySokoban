@@ -44,7 +44,7 @@ void specifier_c(va_list list, int *counter, char *modifiers)
     }
     my_putchar(c);
     if (in_modifiers(0, '-', modifiers) == 1) {
-        for (int i = 0; i < (nb_min_char - 1); i++)	{
+        for (int i = 0; i < (nb_min_char - 1); i++) {
             my_putchar(' ');
             length++;
         }
